@@ -13,8 +13,14 @@ class CategoryRequest extends FormRequest
 
 	public function rules()
 	{
-		return [
-			//
+		$rules = [
+			'name' => ['required', 'string'],
 		];
+		if ($this->method() == 'POST') {
+			array_push($rules['name'], 'unique:categories,name');
+		} else {
+			array_push($rules['name'], 'unique:categories,name,' . $this->category->id);
+		}
+		return $rules;
 	}
 }
