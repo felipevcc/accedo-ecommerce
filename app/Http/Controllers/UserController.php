@@ -28,7 +28,7 @@ class UserController extends Controller
 		$user->save();
 		$user->assignRole($request->role);
 		if (!$request->ajax()) return back()->with('success', 'User created successfully');
-		return response()->json(['status' => 'User created', 'user' => $user], 201);
+		return response()->json(['status' => 'User created successfully', 'user' => $user], 201);
 	}
 
 	public function show(Request $request, User $user)

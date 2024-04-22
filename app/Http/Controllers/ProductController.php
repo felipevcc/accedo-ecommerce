@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Traits\UploadImage;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-	public function index()
+	use UploadImage;
+
+	public function index(Request $request)
 	{
-		//
+		$products = Product::available()->with('category', 'image')->get();
+		if (!$request->ajax()) return view('products.index', compact('products'));
+		return response()->json(['products' => $products], 200);
 	}
 
 	public function getAllDT()
@@ -25,36 +33,52 @@ class ProductController extends Controller
 			'searchTerm' => ['required', 'string'],
 		]);
 		$products = Product::available()->search($request->searchTerm)->get();
-		return view('products.search', compact('products'));
+		if (!$request->ajax()) return view('products.search', compact('products'));
+		return response()->json(['products' => $products], 200);
 	}
 
-	public function create()
+	public function store(ProductRequest $request)
 	{
-		//
+		try {
+			DB::beginTransaction();
+			$product = new Product($request->all());
+			$product->save();
+			$this->uploadImage($product, $request);
+			DB::commit();
+			if (!$request->ajax()) return back()->with('success', 'Product created successfully');
+			return response()->json(['status' => 'Product created successfully', 'product' => $product], 201);
+		} catch (\Throwable $th) {
+			DB::rollback();
+			throw $th;
+		}
 	}
 
-	public function store(Request $request)
+	public function show(Request $request, Product $product)
 	{
-		//
+		if (!$request->ajax()) return view('products.show', compact('product'));
+		return response()->json(['product' => $product], 200);
 	}
 
-	public function show($id)
+	public function update(ProductUpdateRequest $request, Product $product)
 	{
-		//
+		try {
+			DB::beginTransaction();
+			$product->update($request->all());
+			$this->uploadImage($product, $request);
+			DB::commit();
+			if (!$request->ajax()) return back()->with('success', 'Product updated successfully');
+			return response()->json([], 204);
+		} catch (\Throwable $th) {
+			DB::rollback();
+			throw $th;
+		}
 	}
 
-	public function edit($id)
+	public function destroy(Request $request, Product $product)
 	{
-		//
-	}
-
-	public function update(Request $request, $id)
-	{
-		//
-	}
-
-	public function destroy($id)
-	{
-		//
+		$product->delete();
+		$this->deleteImage($product);
+		if (!$request->ajax()) return back()->with('success', 'Product deleted successfully');
+		return response()->json([], 204);
 	}
 }

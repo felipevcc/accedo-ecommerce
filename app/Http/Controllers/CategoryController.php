@@ -44,7 +44,7 @@ class CategoryController extends Controller
 		$category = new Category($request->all());
 		$category->save();
 		if (!$request->ajax()) return back()->with('success', 'Category created successfully');
-		return response()->json(['status' => 'Category created', 'category' => $category], 201);
+		return response()->json(['status' => 'Category created successfully', 'category' => $category], 201);
 	}
 
 	public function show(Request $request, Category $category)
