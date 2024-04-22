@@ -52,4 +52,14 @@ class Product extends Model
 	{
 		return $this->hasMany(CartDetail::class, 'product_id', 'id');
 	}
+
+	public function scopeAvailable($query)
+	{
+		return $query->where('stock', '>', 0);
+	}
+
+	public function scopeSearch($query, $searchTerm)
+	{
+		return $query->where('name', 'LIKE', '%' . $searchTerm . '%');
+	}
 }
