@@ -1,12 +1,14 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Models\Category;
+use App\Http\Controllers\CartDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,5 +68,18 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/', 'store')->name('categories.store');
 		Route::put('/{category}', 'update')->name('categories.update');
 		Route::delete('/{category}', 'destroy')->name('categories.destroy');
+	});
+
+	// Carts
+	Route::group(['prefix' => 'carts', 'controller' => CartController::class], function () {
+		Route::get('/show', 'show')->name('carts.show');
+		Route::post('/store', 'store')->name('carts.store');
+	});
+
+	// CartDetails
+	Route::group(['prefix' => 'cartDetails', 'controller' => CartDetailController::class], function () {
+		Route::post('/store', 'store')->name('cartDetails.store');
+		Route::post('/update/{cartDetail}', 'update')->name('cartDetails.update');
+		Route::delete('/{cartDetail}', 'destroy')->name('cartDetails.destroy');
 	});
 });
