@@ -68,13 +68,13 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Carts
-	Route::group(['prefix' => 'carts', 'controller' => CartController::class], function () {
+	Route::group(['prefix' => 'carts', 'middleware' => ['role:user'], 'controller' => CartController::class], function () {
 		Route::get('/show', 'show')->name('carts.show');
 		Route::post('/store', 'store')->name('carts.store');
 	});
 
 	// CartDetails
-	Route::group(['prefix' => 'cartDetails', 'controller' => CartDetailController::class], function () {
+	Route::group(['prefix' => 'cartDetails', 'middleware' => ['role:user'], 'controller' => CartDetailController::class], function () {
 		Route::post('/store', 'store')->name('cartDetails.store');
 		Route::post('/update/{cartDetail}', 'update')->name('cartDetails.update');
 		Route::delete('/{cartDetail}', 'destroy')->name('cartDetails.destroy');

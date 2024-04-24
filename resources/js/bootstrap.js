@@ -15,6 +15,7 @@ import jsZip from 'jszip';
 // PDF HTML5 export button
 import pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import 'datatables.net-buttons/js/buttons.print.mjs';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

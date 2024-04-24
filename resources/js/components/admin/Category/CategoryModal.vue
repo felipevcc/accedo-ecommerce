@@ -41,7 +41,7 @@ import { ref, getCurrentInstance } from 'vue';
 import { handlerErrors, successMessage } from '@/helpers/Alerts.js';
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
-import BackendError from '../Components/BackendError.vue';
+import BackendError from '@/components/Components/BackendError.vue';
 
 export default {
 	props: ['category_data'],

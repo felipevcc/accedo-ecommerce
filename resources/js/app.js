@@ -4,9 +4,9 @@ import vSelect from 'vue-select';
 
 // Components ---------------------------------------------------
 import BackendError from './components/Components/BackendError.vue';
-import UserList from './components/User/UserList.vue';
-import CategoryList from './components/Category/CategoryList.vue';
-import ProductList from './components/Product/ProductList.vue';
+import UserList from './components/admin/User/UserList.vue';
+import CategoryList from './components/admin/Category/CategoryList.vue';
+import ProductList from './components/admin/Product/ProductList.vue';
 
 const app = createApp({
 	components: {

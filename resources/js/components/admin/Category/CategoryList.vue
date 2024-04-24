@@ -1,17 +1,14 @@
 <template>
 	<div class="card">
 		<div class="card-header d-flex justify-content-end">
-			<button class="btn btn-primary" @click="createProduct">Crear producto</button>
+			<button class="btn btn-primary" @click="createCategory">Crear categoria</button>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive my-4 mx-2">
-				<table class="table table-bordered" id="product_table">
+				<table class="table table-bordered" id="category_table">
 					<thead>
 						<tr>
 							<th>Nombre</th>
-							<th>Categoría</th>
-							<th>Precio</th>
-							<th>Stock</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -22,7 +19,7 @@
 		</div>
 	</div>
 	<div v-if="load_modal">
-		<product-modal :product_data="product" />
+		<category-modal :category_data="category" />
 	</div>
 </template>
 
@@ -30,15 +27,14 @@
 import { ref, onMounted } from 'vue';
 import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
 import handlerModal from '@/helpers/HandlerModal.js';
-import formatCurrency from '@/helpers/FormatCurrency.js';
-import ProductModal from './ProductModal.vue';
+import CategoryModal from './CategoryModal.vue';
 
 export default {
-	//props: [],
-	components: { ProductModal },
+	components: { CategoryModal },
+	// props: [],
 	setup(/* props */) {
 		const table = ref(null);
-		const product = ref(null);
+		const category = ref(null);
 		const { openModal, closeModal, load_modal } = handlerModal();
 
 		onMounted(() => index());
@@ -46,7 +42,12 @@ export default {
 		const index = () => mountTable();
 
 		const mountTable = () => {
-			table.value = $('#product_table').DataTable({
+			// Excludes the last column of actions from exports
+			const exportOptions = {
+				columns: ':not(:last)'
+			};
+
+			table.value = $('#category_table').DataTable({
 				destroy: true,
 				processing: true,
 				serverSide: true,
@@ -54,13 +55,24 @@ export default {
 				order: [[0, 'asc']],
 				autoWidth: false,
 				dom: 'Bfrtip',
-				buttons: ['pageLength', 'excel', 'pdf', 'copy'],
-				ajax: `/products/getAllDT`,
+				buttons: [
+					'pageLength',
+					{ extend: 'excel', exportOptions },
+					{ extend: 'pdf', exportOptions },
+					{
+						extend: 'print',
+						exportOptions: {
+							modifier: {
+								selected: null,
+							},
+							...exportOptions
+						}
+					},
+					{ extend: 'copy', exportOptions }
+				],
+				ajax: `/categories/getAllDT`,
 				columns: [
 					{ data: 'name', name: 'name', orderable: true, searchable: true },
-					{ data: 'category.name', name: 'name', orderable: true, searchable: true },
-					{ data: 'price', name: 'price', orderable: true, searchable: false, render: (data) => formatCurrency(data) },
-					{ data: 'stock', name: 'stock', orderable: true, searchable: false },
 					{
 						name: 'action',
 						orderable: false,
@@ -85,29 +97,29 @@ export default {
 		const handleAction = event => {
 			const button = event.target.closest('[role]');
 			if (!button) return;
-			const product_id = button.getAttribute('data-id');
+			const category_id = button.getAttribute('data-id');
 
 			if (button.getAttribute('role') == 'edit') {
-				editProduct(product_id);
+				editCategory(category_id);
 			} else if (button.getAttribute('role') == 'delete') {
-				deleteProduct(product_id);
+				deleteCategory(category_id);
 			}
 		};
 
-		const editProduct = async id => {
+		const editCategory = async id => {
 			try {
-				const { data } = await axios.get(`/products/${id}`);
-				product.value = data.product;
-				await openModal('product_modal');
+				const { data } = await axios.get(`/categories/${id}`);
+				category.value = data.category;
+				await openModal('category_modal');
 			} catch (error) {
 				await handlerErrors(error);
 			}
 		};
 
-		const deleteProduct = async id => {
+		const deleteCategory = async id => {
 			if (!(await deleteMessage())) return;
 			try {
-				await axios.delete(`/products/${id}`);
+				await axios.delete(`/categories/${id}`);
 				await successMessage({ is_delete: true });
 				reloadState();
 			} catch (error) {
@@ -115,11 +127,12 @@ export default {
 			}
 		};
 
-		const createProduct = async () => {
-			product.value = null;
-			await openModal('product_modal');
+		const createCategory = async () => {
+			category.value = null;
+			await openModal('category_modal');
 		};
 
+		// Reload table component
 		const reloadState = () => {
 			table.value.destroy();
 			// Reload table
@@ -127,14 +140,14 @@ export default {
 		};
 
 		return {
-			product,
+			category,
 			load_modal,
-			createProduct,
-			handleAction,
-			editProduct,
-			deleteProduct,
+			editCategory,
+			deleteCategory,
+			createCategory,
 			closeModal,
-			reloadState
+			reloadState,
+			handleAction
 		};
 	}
 };

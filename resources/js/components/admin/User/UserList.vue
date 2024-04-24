@@ -46,6 +46,11 @@ export default {
 		const index = () => mountTable();
 
 		const mountTable = () => {
+			// Excludes the last column of actions from exports
+			const exportOptions = {
+				columns: ':not(:last)'
+			};
+
 			table.value = $('#user_table').DataTable({
 				destroy: true,
 				processing: true,
@@ -54,7 +59,21 @@ export default {
 				order: [[0, 'asc']],
 				autoWidth: false,
 				dom: 'Bfrtip',
-				buttons: ['pageLength', 'excel', 'pdf', 'copy'],
+				buttons: [
+					'pageLength',
+					{ extend: 'excel', exportOptions },
+					{ extend: 'pdf', exportOptions },
+					{
+						extend: 'print',
+						exportOptions: {
+							modifier: {
+								selected: null,
+							},
+							...exportOptions
+						}
+					},
+					{ extend: 'copy', exportOptions }
+				],
 				ajax: `/users/getAllDT`,
 				columns: [
 					{ data: 'number_id', name: 'name', orderable: true, searchable: true },
