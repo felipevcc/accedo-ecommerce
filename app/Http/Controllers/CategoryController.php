@@ -15,7 +15,7 @@ class CategoryController extends Controller
 		$categories = Category::with(['products' => function ($query) {
 			$query->available()->with('image')->limit(5);
 		}])->get();
-		return view('home', compact('categories'));
+		return view('index', compact('categories'));
 	}
 
 	public function index(Request $request)

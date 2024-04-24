@@ -26,6 +26,7 @@ class User extends Authenticatable
 
 	protected $appends = [
 		'full_name',
+		'role',
 	];
 
 	protected $hidden = [
@@ -56,5 +57,10 @@ class User extends Authenticatable
 	public function getFullNameAttribute()
 	{
 		return "{$this->name} {$this->last_name}";
+	}
+
+	public function getRoleAttribute()
+	{
+		return $this->getRoleNames()->first();
 	}
 }

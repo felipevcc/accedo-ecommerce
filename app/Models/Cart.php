@@ -19,6 +19,7 @@ class Cart extends Model
 
 	protected $appends = [
 		'total_price',
+		'product_quantity',
 	];
 
 	public function user(): BelongsTo
@@ -37,5 +38,13 @@ class Cart extends Model
 			$total_price += $detail->price;
 		}
 		return $total_price;
+	}
+
+	public function getProductQuantityAttribute() {
+		$product_quantity = 0;
+		foreach ($this->cartDetails as $detail) {
+			$product_quantity += $detail->amount;
+		}
+		return $product_quantity;
 	}
 }

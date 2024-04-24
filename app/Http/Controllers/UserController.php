@@ -18,7 +18,7 @@ class UserController extends Controller
 
 	public function getAllDT()
 	{
-		$users = User::with('roles')->query();
+		$users = User::query();
 		return DataTables::of($users)->toJson();
 	}
 
