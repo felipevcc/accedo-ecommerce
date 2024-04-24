@@ -25,15 +25,6 @@ Auth::routes();
 
 Route::get('/', [CategoryController::class, 'home'])->name('categories.home');
 
-// Get all products in a category
-Route::get('/categories/{category}/getProducts', [CategoryController::class, 'getProducts'])->name('categories.products');
-
-Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
-	Route::get('/{product}', 'show')->name('products.show');
-	Route::get('/search', 'search')->name('products.search');
-});
-
-
 Route::group(['middleware' => ['auth']], function () {
 
 	// View after being authenticated
@@ -60,7 +51,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::group(['middleware' => ['role:admin']], function () {
 			Route::get('/getAllDT', 'getAllDT')->name('products.getAllDT');
-			Route::get('/{product}', 'show')->name('products.show');
 			Route::post('/store', 'store')->name('products.store');
 			Route::post('/update/{product}', 'update')->name('products.update');
 			Route::delete('/{product}', 'destroy')->name('products.destroy');
@@ -89,4 +79,12 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/update/{cartDetail}', 'update')->name('cartDetails.update');
 		Route::delete('/{cartDetail}', 'destroy')->name('cartDetails.destroy');
 	});
+});
+
+// Get all products in a category
+Route::get('/categories/{category}/getProducts', [CategoryController::class, 'getProducts'])->name('categories.products');
+
+Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
+	Route::get('/search', 'search')->name('products.search');
+	Route::get('/{product}', 'show')->name('products.show');
 });

@@ -33,7 +33,7 @@ class Product extends Model
 	{
 		return Attribute::make(
 			get: function ($value, $attributes) {
-				return Str::limit($attributes['description'], 80, '...');
+				return Str::limit($attributes['name'], 35, '...');
 			},
 		);
 	}

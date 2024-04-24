@@ -26,7 +26,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
-import HandlerModal from '@/helpers/HandlerModal.js';
+import handlerModal from '@/helpers/HandlerModal.js';
 import CategoryModal from './CategoryModal.vue';
 
 export default {
@@ -35,7 +35,7 @@ export default {
 	setup(/* props */) {
 		const table = ref(null);
 		const category = ref(null);
-		const { openModal, closeModal, load_modal } = HandlerModal();
+		const { openModal, closeModal, load_modal } = handlerModal();
 
 		onMounted(() => index());
 
@@ -68,14 +68,14 @@ export default {
 										<i class='fa-solid fa-trash-can' data-id='${row.id}' role='delete'></i>
 									</button>
 								</div>
-							`
+							`;
 						}
 					}
 				]
-			})
-		}
+			});
+		};
 
-		const handleAction = (event) => {
+		const handleAction = event => {
 			const button = event.target.closest('[role]');
 			if (!button) return;
 			const category_id = button.getAttribute('data-id');
@@ -85,9 +85,9 @@ export default {
 			} else if (button.getAttribute('role') == 'delete') {
 				deleteCategory(category_id);
 			}
-		}
+		};
 
-		const editCategory = async (id) => {
+		const editCategory = async id => {
 			try {
 				const { data } = await axios.get(`/categories/${id}`);
 				category.value = data.category;
@@ -95,10 +95,10 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
-		}
+		};
 
-		const deleteCategory = async (id) => {
-			if (!await deleteMessage()) return;
+		const deleteCategory = async id => {
+			if (!(await deleteMessage())) return;
 			try {
 				await axios.delete(`/categories/${id}`);
 				await successMessage({ is_delete: true });
@@ -106,19 +106,19 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
-		}
+		};
 
 		const createCategory = async () => {
 			category.value = null;
 			await openModal('category_modal');
-		}
+		};
 
 		// Reload table component
 		const reloadState = () => {
 			table.value.destroy();
 			// Reload table
 			index();
-		}
+		};
 
 		return {
 			category,
@@ -129,7 +129,7 @@ export default {
 			closeModal,
 			reloadState,
 			handleAction
-		}
+		};
 	}
-}
+};
 </script>

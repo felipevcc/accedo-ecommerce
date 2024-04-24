@@ -35,6 +35,24 @@
 						</a>
 
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+							@role('admin')
+								{{-- Users --}}
+								<a class="dropdown-item" href="{{ route('users.index') }}">
+									Usuarios
+								</a>
+
+								{{-- Books --}}
+								<a class="dropdown-item" href="{{ route('products.index') }}">
+									Productos
+								</a>
+
+								{{-- Categories --}}
+								<a class="dropdown-item" href="{{ route('categories.index') }}">
+									Categorías
+								</a>
+							@endrole
+
 							{{-- Logout --}}
 							<a class="dropdown-item" href="{{ route('logout') }}"
 							   onclick="event.preventDefault();

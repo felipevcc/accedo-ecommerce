@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import { handlerErrors, successMessage } from '@/helpers/Alerts.js';
 import { ref, getCurrentInstance } from 'vue';
+import { handlerErrors, successMessage } from '@/helpers/Alerts.js';
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 import BackendError from '../Components/BackendError.vue';
@@ -65,12 +65,12 @@ export default {
 			} catch (error) {
 				back_errors.value = await handlerErrors(error);
 			}
-		}
+		};
 
 		const successResponse = () => {
 			instance.parent.ctx.reloadState();
 			closeModal();
-		}
+		};
 
 		// Validate
 		const name_rules = yup.string().required('El nombre es requerido');
@@ -82,8 +82,8 @@ export default {
 			name_rules,
 			back_errors,
 			closeModal,
-			saveCategory,
-		}
+			saveCategory
+		};
 	}
-}
+};
 </script>

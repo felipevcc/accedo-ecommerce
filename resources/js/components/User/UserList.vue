@@ -30,7 +30,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
-import HandlerModal from '@/helpers/HandlerModal.js';
+import handlerModal from '@/helpers/HandlerModal.js';
 import UserModal from './UserModal.vue';
 
 export default {
@@ -39,7 +39,7 @@ export default {
 	setup(/* props */) {
 		const table = ref(null);
 		const user = ref(null);
-		const { openModal, closeModal, load_modal } = HandlerModal();
+		const { openModal, closeModal, load_modal } = handlerModal();
 
 		onMounted(() => index());
 
@@ -76,14 +76,14 @@ export default {
 										<i class='fa-solid fa-trash-can' data-id='${row.id}' role='delete'></i>
 									</button>
 								</div>
-							`
+							`;
 						}
 					}
 				]
-			})
-		}
+			});
+		};
 
-		const handleAction = (event) => {
+		const handleAction = event => {
 			const button = event.target.closest('[role]');
 			if (!button) return;
 			const user_id = button.getAttribute('data-id');
@@ -93,9 +93,9 @@ export default {
 			} else if (button.getAttribute('role') == 'delete') {
 				deleteUser(user_id);
 			}
-		}
+		};
 
-		const editUser = async (id) => {
+		const editUser = async id => {
 			try {
 				const { data } = await axios.get(`/users/${id}`);
 				user.value = data.user;
@@ -103,10 +103,10 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
-		}
+		};
 
-		const deleteUser = async (id) => {
-			if (!await deleteMessage()) return;
+		const deleteUser = async id => {
+			if (!(await deleteMessage())) return;
 			try {
 				await axios.delete(`/users/${id}`);
 				await successMessage({ is_delete: true });
@@ -114,19 +114,19 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
-		}
+		};
 
 		const createUser = async () => {
 			user.value = null;
 			await openModal('user_modal');
-		}
+		};
 
 		// Reload table component
 		const reloadState = () => {
 			table.value.destroy();
 			// Reload table
 			index();
-		}
+		};
 
 		return {
 			user,
@@ -137,7 +137,7 @@ export default {
 			closeModal,
 			reloadState,
 			handleAction
-		}
+		};
 	}
-}
+};
 </script>

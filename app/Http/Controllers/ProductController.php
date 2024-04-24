@@ -23,7 +23,7 @@ class ProductController extends Controller
 
 	public function getAllDT()
 	{
-		$products = Product::with('category', 'image')->query();
+		$products = Product::with('category', 'image');
 		return DataTables::of($products)->toJson();
 	}
 
@@ -55,6 +55,7 @@ class ProductController extends Controller
 
 	public function show(Request $request, Product $product)
 	{
+		$product->load('category', 'image');
 		if (!$request->ajax()) return view('products.show', compact('product'));
 		return response()->json(['product' => $product], 200);
 	}

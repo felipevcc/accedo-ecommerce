@@ -11,11 +11,11 @@
 				<backend-error :errors="back_errors" />
 
 				<!-- Form -->
-				<Form @submit="saveUser" :validation-schema="schema">
+				<Form @submit="saveUser" :validation-schema="formSchema">
 					<div class="modal-body row">
 
 						<!-- Number id (CC) -->
-						<div class="col-12 mt-2">
+						<div class="col-12">
 							<label for="number_id">Cédula</label>
 							<Field name="number_id" v-slot="{ errorMessage, field }" v-model="user.number_id">
 								<input type="number" id="number_id" :class="`form-control ${errorMessage || back_errors['number_id'] ? 'is-invalid' : ''}`" v-bind="field">
@@ -129,19 +129,17 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
-		}
+		};
 
-		const schema = () => {
-			return yup.object({
-				number_id: yup.number().positive().required(),
-				name: yup.string().required(),
-				last_name: yup.string().required(),
-				email: yup.string().email().required(),
-				password: yup.string().required(),
-				password_confirmation: yup.string().required(),
-				role: yup.string().required()
-			})
-		}
+		const formSchema = yup.object({
+			number_id: yup.number().positive().required(),
+			name: yup.string().required(),
+			last_name: yup.string().required(),
+			email: yup.string().email().required(),
+			password: yup.string().required(),
+			password_confirmation: yup.string().required(),
+			role: yup.string().required()
+		});
 
 		const saveUser = async () => {
 			try {
@@ -154,12 +152,12 @@ export default {
 			} catch (error) {
 				back_errors.value = await handlerErrors(error);
 			}
-		}
+		};
 
 		const successResponse = () => {
 			instance.parent.ctx.reloadState();
 			closeModal();
-		}
+		};
 
 		return {
 			user,
@@ -168,8 +166,8 @@ export default {
 			back_errors,
 			closeModal,
 			saveUser,
-			schema,
-		}
+			formSchema
+		};
 	}
-}
+};
 </script>

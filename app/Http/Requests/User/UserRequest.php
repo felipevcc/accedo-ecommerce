@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
 			array_push($rules['password'], 'nullable');
 		}
 
-		if ($this->path() != 'api/register') {
+		if ($this->path() != 'register') {
 			$rules['role'] = ['required', 'string', 'in:user,admin'];
 		}
 
