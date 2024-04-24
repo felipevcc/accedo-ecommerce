@@ -30,6 +30,7 @@
 import { ref, onMounted } from 'vue';
 import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
 import handlerModal from '@/helpers/HandlerModal.js';
+import formatCurrency from '@/helpers/FormatCurrency.js';
 import ProductModal from './ProductModal.vue';
 
 export default {
@@ -58,7 +59,7 @@ export default {
 				columns: [
 					{ data: 'name', name: 'name', orderable: true, searchable: true },
 					{ data: 'category.name', name: 'name', orderable: true, searchable: true },
-					{ data: 'price', name: 'price', orderable: true, searchable: false },
+					{ data: 'price', name: 'price', orderable: true, searchable: false, render: (data) => formatCurrency(data) },
 					{ data: 'stock', name: 'stock', orderable: true, searchable: false },
 					{
 						name: 'action',
