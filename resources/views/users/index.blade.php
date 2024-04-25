@@ -4,6 +4,6 @@
 			<h1>Listado de usuarios</h1>
 		</div>
 
-		<user-list />
+		<admin-user-list />
 	</section>
 </x-app>

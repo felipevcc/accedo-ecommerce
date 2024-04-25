@@ -4,6 +4,6 @@
 			<h1>Listado de categorías</h1>
 		</div>
 
-		<category-list />
+		<admin-category-list />
 	</section>
 </x-app>

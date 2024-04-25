@@ -1,0 +1,27 @@
+// Category card in home page
+.category-card {
+	h2 {
+		font-size: 23px;
+		font-weight: 600;
+	}
+}
+
+// Product cards
+.product-card {
+	width: 14.7rem;
+
+	&:hover .card-title {
+		color: rgb(0, 110, 255)
+	}
+
+	.product-price {
+		font-size: 23px;
+		font-weight: 400;
+	}
+
+	.product-stock {
+		color: #00a650;
+		background-color: #E5F6ED;
+		font-weight: 600;
+	}
+}

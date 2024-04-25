@@ -17,10 +17,19 @@
 // Vue select
 @import 'vue-select/dist/vue-select.css';
 
-.card_size {
-	width: 18rem;
-}
+// View styles
+@import 'category';
 
 body {
 	background-color: rgb(238, 240, 245);
+}
+
+a {
+	text-decoration: none;
+}
+
+// a tags that include content inside to redirect to another view
+.content-link {
+	text-decoration: none;
+	color: black;
 }

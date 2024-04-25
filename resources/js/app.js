@@ -4,15 +4,25 @@ import vSelect from 'vue-select';
 
 // Components ---------------------------------------------------
 import BackendError from './components/Components/BackendError.vue';
-import UserList from './components/admin/User/UserList.vue';
-import CategoryList from './components/admin/Category/CategoryList.vue';
-import ProductList from './components/admin/Product/ProductList.vue';
+import AdminUserList from './components/Admin/User/UserList.vue';
+import AdminCategoryList from './components/Admin/Category/CategoryList.vue';
+import AdminProductList from './components/Admin/Product/ProductList.vue';
+import CategoryList from './components/Category/CategoryList.vue';
+import CategoryProducts from './components/Category/CategoryProducts.vue';
+import ProductSearch from './components/Product/ProductSearch.vue';
+import ProductInfo from './components/Product/ProductInfo.vue';
+import ShoppingCart from './components/Cart/ShoppingCart.vue';
 
 const app = createApp({
 	components: {
-		UserList,
+		AdminUserList,
+		AdminCategoryList,
+		AdminProductList,
 		CategoryList,
-		ProductList
+		CategoryProducts,
+		ProductSearch,
+		ProductInfo,
+		ShoppingCart
 	}
 });
 

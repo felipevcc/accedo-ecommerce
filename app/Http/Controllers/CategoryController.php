@@ -12,9 +12,12 @@ class CategoryController extends Controller
 	public function home()
 	{
 		// Get the first 5 products for each category
-		$categories = Category::with(['products' => function ($query) {
-			$query->available()->with('image')->limit(5);
-		}])->get();
+		$categories = Category::has('products')->get();
+		foreach ($categories as $category) {
+			$category->load(['products' => function ($query) {
+				$query->available()->with('image')->take(5);
+			}]);
+		}
 		return view('index', compact('categories'));
 	}
 

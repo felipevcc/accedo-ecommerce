@@ -4,6 +4,6 @@
 			<h1>Listado de productos</h1>
 		</div>
 
-		<product-list />
+		<admin-product-list />
 	</section>
 </x-app>

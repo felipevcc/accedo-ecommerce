@@ -30,7 +30,7 @@
 import { ref, onMounted } from 'vue';
 import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
 import handlerModal from '@/helpers/HandlerModal.js';
-import formatCurrency from '@/helpers/FormatCurrency.js';
+import { formatCurrency } from '@/helpers/Format.js';
 import ProductModal from './ProductModal.vue';
 
 export default {
