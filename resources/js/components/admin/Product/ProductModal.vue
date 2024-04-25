@@ -106,7 +106,7 @@ export default {
 
 		const is_create = product_data ? ref(false) : ref(true);
 		const product = !is_create.value ? ref(product_data) : ref({});
-		const image_preview = !is_create.value ? ref(product_data.image.route) : '/storage/images/products/default.png';
+		const image_preview = !is_create.value ? ref(product_data.image.route) : ref('/storage/images/products/default.png');
 		const image = ref(null);
 		const categories = ref([]);
 		const loaded_categories = ref(false);

@@ -1,0 +1,24 @@
+// Product cards
+.product-card {
+	width: 14.7rem;
+
+	img {
+		max-height: 170px;
+	}
+
+	&:hover .card-title {
+		color: rgb(0, 110, 255)
+	}
+
+	.product-stock {
+		color: #00a650;
+		background-color: #E5F6ED;
+	}
+}
+
+.search {
+	.product-card {
+		box-shadow: var(--bs-box-shadow-sm);
+	}
+}
+

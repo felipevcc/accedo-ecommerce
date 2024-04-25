@@ -18,13 +18,13 @@ class CategoryController extends Controller
 				$query->available()->with('image')->take(5);
 			}]);
 		}
-		return view('index', compact('categories'));
+		return view('home', compact('categories'));
 	}
 
 	public function index(Request $request)
 	{
 		$categories = Category::get();
-		if (!$request->ajax()) return view('categories.index');
+		if (!$request->ajax()) return view('admin.categories.index');
 		return response()->json(['categories' => $categories], 200);
 	}
 
@@ -34,12 +34,14 @@ class CategoryController extends Controller
 		return DataTables::of($categories)->toJson();
 	}
 
-	public function getProducts(Request $request, Category $category)
+	public function loadProducts(Request $request, Category $category)
 	{
-		// Get all products in a category
-		$products = $category->products()->available()->with('image')->get();
-		if (!$request->ajax()) return view('categories.products', compact('category', 'products'));
-		return response()->json(['products' => $products], 200);
+		// Load all products in a category
+		$category->load(['products' => function ($query) {
+			$query->available()->with('image');
+		}]);
+		if (!$request->ajax()) return view('categories.products', compact('category'));
+		return response()->json(['category' => $category], 200);
 	}
 
 	public function store(CategoryRequest $request)

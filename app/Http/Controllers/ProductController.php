@@ -17,7 +17,7 @@ class ProductController extends Controller
 	public function index(Request $request)
 	{
 		$products = Product::available()->with('category', 'image')->get();
-		if (!$request->ajax()) return view('products.index', compact('products'));
+		if (!$request->ajax()) return view('admin.products.index', compact('products'));
 		return response()->json(['products' => $products], 200);
 	}
 
@@ -32,7 +32,7 @@ class ProductController extends Controller
 		$request->validate([
 			'searchTerm' => ['required', 'string'],
 		]);
-		$products = Product::available()->search($request->searchTerm)->get();
+		$products = Product::available()->search($request->searchTerm)->with('category', 'image')->get();
 		if (!$request->ajax()) return view('products.search', compact('products'));
 		return response()->json(['products' => $products], 200);
 	}
@@ -56,7 +56,7 @@ class ProductController extends Controller
 	public function show(Request $request, Product $product)
 	{
 		$product->load('category', 'image');
-		if (!$request->ajax()) return view('products.show', compact('product'));
+		if (!$request->ajax()) return view('products.info', compact('product'));
 		return response()->json(['product' => $product], 200);
 	}
 

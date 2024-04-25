@@ -16,7 +16,7 @@ trait UploadImage
 		if (!isset($request->image)) return;
 		$random = Str::random(20);
 		$path = $this->getRoute($model);
-		$this->deleteFile($model);
+		$this->deleteImage($model);
 
 		// Save image to server storage
 		$imageName = "{$random}.{$request->image->clientExtension()}";

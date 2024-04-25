@@ -46,15 +46,12 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Products
-	Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
+	Route::group(['prefix' => 'products', 'middleware' => ['role:admin'], 'controller' => ProductController::class], function () {
 		Route::get('/', 'index')->name('products.index');
-
-		Route::group(['middleware' => ['role:admin']], function () {
-			Route::get('/getAllDT', 'getAllDT')->name('products.getAllDT');
-			Route::post('/store', 'store')->name('products.store');
-			Route::post('/update/{product}', 'update')->name('products.update');
-			Route::delete('/{product}', 'destroy')->name('products.destroy');
-		});
+		Route::get('/getAllDT', 'getAllDT')->name('products.getAllDT');
+		Route::post('/store', 'store')->name('products.store');
+		Route::post('/update/{product}', 'update')->name('products.update');
+		Route::delete('/{product}', 'destroy')->name('products.destroy');
 	});
 
 	// Categories
@@ -82,7 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 // Get all products in a category
-Route::get('/categories/{category}/getProducts', [CategoryController::class, 'getProducts'])->name('categories.products');
+Route::get('/categories/{category}/products', [CategoryController::class, 'loadProducts'])->name('categories.products');
 
 Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
 	Route::get('/search', 'search')->name('products.search');

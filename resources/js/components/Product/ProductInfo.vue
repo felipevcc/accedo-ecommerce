@@ -1,18 +1,15 @@
 <template>
+	<h1>{{ product.name }}</h1>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
 
 export default {
-	name: '',
-	//props: [],
+	props: ['product'],
 	//components: {},
-	setup(/* props */) {
+	setup({ product }) {
 		return {}
 	}
 }
 </script>
-
-<style lang='scss' scoped>
-</style>
