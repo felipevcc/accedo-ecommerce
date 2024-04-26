@@ -1,5 +1,10 @@
+// View products by category
 .category-products {
-	.product-card {
-		box-shadow: var(--bs-box-shadow-sm);
+	.products {
+		width: 80%;
+
+		.product-card {
+			box-shadow: var(--bs-box-shadow-sm);
+		}
 	}
 }

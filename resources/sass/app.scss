@@ -27,7 +27,7 @@
 }
 
 body {
-	background-color: rgb(238, 240, 245);
+	background-color: #EDEDED;
 }
 
 a {
@@ -38,4 +38,8 @@ a {
 .content-link {
 	text-decoration: none;
 	color: black;
+}
+
+.row > * {
+	padding: 0;
 }

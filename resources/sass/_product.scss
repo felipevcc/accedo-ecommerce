@@ -1,4 +1,4 @@
-// Product cards
+// Product cards (vertical)
 .product-card {
 	width: 14.7rem;
 
@@ -7,7 +7,7 @@
 	}
 
 	&:hover .card-title {
-		color: rgb(0, 110, 255)
+		color: rgb(0, 110, 255);
 	}
 
 	.product-stock {
@@ -16,15 +16,49 @@
 	}
 }
 
-.search {
-	.product-card {
-		box-shadow: var(--bs-box-shadow-sm);
+// Product cards (horizontal)
+.product-card-horiz {
+	max-width: 1035px;
+	margin-bottom: 1px;
+	min-height: 200px;
+
+	.img-cont {
+		display: flex;
+		justify-content: center;
+		img {
+			max-height: 256px;
+			width: auto;
+		}
+	}
+
+	&:hover .card-title {
+		color: rgb(0, 110, 255) !important;
+	}
+
+	.product-stock {
+		color: #00a650;
+		background-color: #E5F6ED;
 	}
 }
 
+// Search results view
+.search {
+	margin-bottom: 1.5rem;
+
+	.products {
+		width: 80%;
+
+		.product-card-horiz {
+			box-shadow: var(--bs-box-shadow-sm);
+		}
+	}
+}
+
+// Product information view
 .product-info {
 	.product-description {
 		p {
+			// Line breaks
 			white-space: pre-line;
 		}
 	}
