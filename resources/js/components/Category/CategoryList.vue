@@ -19,7 +19,7 @@ import ProductCard from '../Product/ProductCard.vue';
 export default {
 	props: ['categories'],
 	components: { ProductCard },
-	setup({ categories }) {
+	setup() {
 		return {}
 	}
 }

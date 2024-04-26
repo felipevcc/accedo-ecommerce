@@ -9,7 +9,7 @@
 						{{ formatCurrency(product.price) }}
 					</span>
 					<span class="mt-1 px-1 product-stock fw-bold">
-						{{ product.stock }} {{ pluralize('disponible', product.stock) }}
+						{{ productAvailable(product.stock) }} {{ pluralize('disponible', product.stock) }}
 					</span>
 				</div>
 			</div>
@@ -22,10 +22,16 @@ import { formatCurrency, pluralize } from '@/helpers/Format.js';
 
 export default {
 	props: ['product'],
-	setup({ product }) {
+	setup() {
+		const productAvailable = (stock) => {
+			if (stock > 10) return '+10';
+			else return stock;
+		}
+
 		return {
 			formatCurrency,
-			pluralize
+			pluralize,
+			productAvailable
 		}
 	}
 }

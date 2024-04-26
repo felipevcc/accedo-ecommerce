@@ -22,3 +22,19 @@
 	}
 }
 
+.product-info {
+	.product-description {
+		p {
+			white-space: pre-line;
+		}
+	}
+
+	.product-stock {
+		color: #00a650;
+		background-color: #E5F6ED;
+	}
+
+	.add-cart {
+		cursor: pointer;
+	}
+}
