@@ -1,5 +1,5 @@
 <template>
-	<div class="card border-light mx-2 my-3 product-card">
+	<div class="card bg-white border-light mx-2 my-3 product-card">
 		<a :href="`/products/${product.id}`" class="content-link">
 			<img :src="product.image.route" class="card-img-top" alt="Imagen producto">
 			<div class="card-body d-flex flex-column justify-content-end">

@@ -35,6 +35,8 @@ class Cart extends Model
 	public function getTotalPriceAttribute() {
 		$total_price = 0;
 		foreach ($this->cartDetails as $detail) {
+			$detail->load('product');
+			if ($detail->product->stock == 0) continue;
 			$total_price += $detail->price;
 		}
 		return $total_price;
@@ -43,6 +45,8 @@ class Cart extends Model
 	public function getProductQuantityAttribute() {
 		$product_quantity = 0;
 		foreach ($this->cartDetails as $detail) {
+			$detail->load('product');
+			if ($detail->product->stock == 0) continue;
 			$product_quantity += $detail->amount;
 		}
 		return $product_quantity;

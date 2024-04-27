@@ -36,6 +36,13 @@
 
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
+							@role('user|admin')
+								{{-- Shopping cart --}}
+								<a class="dropdown-item" href="{{ route('carts.show', Auth::user()->id) }}">
+									Carrito
+								</a>
+							@endrole
+
 							@role('admin')
 								{{-- Users --}}
 								<a class="dropdown-item" href="{{ route('users.index') }}">

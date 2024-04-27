@@ -65,8 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Carts
-	Route::group(['prefix' => 'carts', 'middleware' => ['role:user'], 'controller' => CartController::class], function () {
-		Route::get('/show', 'show')->name('carts.show');
+	Route::group(['prefix' => 'carts', 'middleware' => ['role:user|admin'], 'controller' => CartController::class], function () {
+		Route::get('/{user}', 'show')->name('carts.show');
 		Route::post('/store', 'store')->name('carts.store');
 	});
 

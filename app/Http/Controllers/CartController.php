@@ -20,7 +20,7 @@ class CartController extends Controller
 	{
 		$cart = $user->cart()->with('cartDetails')->first();
 
-		if (!$request->ajax()) return view('cart.show', compact('cart'));
+		if (!$request->ajax()) return view('carts.show', compact('cart'));
 		return response()->json(['cart' => $cart], 200);
 	}
 }
