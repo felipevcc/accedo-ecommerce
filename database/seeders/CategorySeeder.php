@@ -14,5 +14,7 @@ class CategorySeeder extends Seeder
 		Category::create(['name' => 'Tecnología']);
 		Category::create(['name' => 'Deportes y Fitness']);
 		Category::create(['name' => 'Hogar y Muebles']);
+		Category::create(['name' => 'Belleza y Cuidado Personal']);
+		Category::create(['name' => 'Construcción']);
 	}
 }

@@ -131,13 +131,16 @@ export default {
 			}
 		};
 
+		let passwordRules = yup.string();
+		if (is_create.value) passwordRules = passwordRules.required();
+
 		const formSchema = yup.object({
 			number_id: yup.number().positive().required(),
 			name: yup.string().required(),
 			last_name: yup.string().required(),
 			email: yup.string().email().required(),
-			password: yup.string().required(),
-			password_confirmation: yup.string().required(),
+			password: passwordRules,
+			password_confirmation: passwordRules,
 			role: yup.string().required()
 		});
 

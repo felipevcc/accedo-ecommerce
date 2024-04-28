@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Products
-	Route::group(['prefix' => 'products', 'middleware' => ['role:admin'], 'controller' => ProductController::class], function () {
+	Route::group(['prefix' => 'products', 'middleware' => ['role:seller|admin'], 'controller' => ProductController::class], function () {
 		Route::get('/', 'index')->name('products.index');
 		Route::get('/getAllDT', 'getAllDT')->name('products.getAllDT');
 		Route::post('/store', 'store')->name('products.store');
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Categories
-	Route::group(['prefix' => 'categories', 'middleware' => ['role:admin'], 'controller' => CategoryController::class], function () {
+	Route::group(['prefix' => 'categories', 'middleware' => ['role:seller|admin'], 'controller' => CategoryController::class], function () {
 		Route::get('/', 'index')->name('categories.index');
 		Route::get('/getAllDT', 'getAllDT')->name('categories.getAllDT');
 		Route::get('/{category}', 'show')->name('categories.show');
@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	// Carts
-	Route::group(['prefix' => 'carts', 'middleware' => ['role:user|admin'], 'controller' => CartController::class], function () {
+	Route::group(['prefix' => 'carts', 'middleware' => ['role:user'], 'controller' => CartController::class], function () {
 		Route::get('/{user}', 'show')->name('carts.show');
 		/* Route::post('/store', 'store')->name('carts.store'); */
 	});

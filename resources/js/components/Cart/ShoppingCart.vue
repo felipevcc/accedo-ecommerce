@@ -8,7 +8,7 @@
 				<div class="card-header border-bottom bg-white p-3">
 					<h2 class="my-auto fs-4 fw-bold">Productos</h2>
 				</div>
-				<div class="card-body d-flex row">
+				<div class="card-body d-flex row mx-0">
 					<cart-detail-card v-for="(detail, index) in cartData.cart_details" :key="index" :cart_detail="detail" :product="getProduct(detail)" />
 				</div>
 			</div>

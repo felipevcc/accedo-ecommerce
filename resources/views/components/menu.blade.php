@@ -36,7 +36,7 @@
 
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-							@role('user|admin')
+							@role('user')
 								{{-- Shopping cart --}}
 								<a class="dropdown-item" href="{{ route('carts.show', Auth::user()->id) }}">
 									Carrito
@@ -48,7 +48,9 @@
 								<a class="dropdown-item" href="{{ route('users.index') }}">
 									Usuarios
 								</a>
+							@endrole
 
+							@role('seller|admin')
 								{{-- Books --}}
 								<a class="dropdown-item" href="{{ route('products.index') }}">
 									Productos

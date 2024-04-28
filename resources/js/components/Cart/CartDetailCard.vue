@@ -1,20 +1,24 @@
 <template>
 	<div class="card bg-white border-light rounded-0 cart-detail-card" v-if="product.image.route">
-		<div class="row g-0">
+		<div class="row g-0 mx-0">
 			<div class="col-md-4 img-cont">
 				<img :src="product.image.route" class="card-img-top img-fluid" alt="Imagen producto" @click="showProduct">
 			</div>
 			<div class="col-md-8 p-3">
-				<div class="card-body d-flex row">
+				<div class="card-body d-flex row mx-0">
 					<div class="d-flex justify-content-between">
-						<div class="">
-							<h6 class="card-title fs-5 mt-2 " @click="showProduct">{{ product.format_name }}</h6>
-							<div>
-								<a @click="deleteCartProduct" role="button" class="card-link fw-bold">Eliminar</a>
-								<a @click="buyProduct" role="button" class="card-link fw-bold">Comprar ahora</a>
+						<div class="d-flex row mx-0">
+							<h6 class="card-title fs-5" @click="showProduct">{{ product.format_name }}</h6>
+							<div class="d-flex">
+								<div>
+									<a @click="deleteCartProduct" role="button" class="card-link fw-bold">Eliminar</a>
+								</div>
+								<div class="ms-3">
+									<a @click="buyProduct" role="button" class="card-link fw-bold">Comprar ahora</a>
+								</div>
 							</div>
 						</div>
-						<div class="d-flex row justify-content-center text-center">
+						<div class="d-flex row justify-content-center text-center ms-2 product-amount">
 							<div class="input-group d-flex justify-content-center text-center">
 								<button type="button" class="btn btn-primary btn-sm" @click="decreaseAmount" :disabled="detail.amount <= 1">-</button>
 								<input type="number" v-model="detail.amount" :class="{ 'is-invalid': amountError }" @change="changeAmount" />
@@ -26,7 +30,7 @@
 							</span>
 						</div>
 						<div class="d-flex flex-wrap mt-2">
-							<span class="w-100 product-price fs-4 fw-normal">
+							<span class="w-100 product-price fs-4 fw-normal ms-5">
 								{{ formatCurrency(product.price) }}
 							</span>
 						</div>

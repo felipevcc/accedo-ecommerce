@@ -19,14 +19,18 @@
 		}
 	}
 
-	.input-group {
-		input {
-			width: 40px;
+	.product-amount {
+		min-width: 103px;
+		.input-group {
+			input {
+				width: 40px;
+				text-align: center;
 
-			&[type="number"]::-webkit-inner-spin-button,
-			&[type="number"]::-webkit-outer-spin-button {
-			  -webkit-appearance: none;
-			  margin: 0;
+				&[type="number"]::-webkit-inner-spin-button,
+				&[type="number"]::-webkit-outer-spin-button {
+				  -webkit-appearance: none;
+				  margin: 0;
+				}
 			}
 		}
 	}

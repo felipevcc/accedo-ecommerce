@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
 		}
 
 		if ($this->path() != 'register') {
-			$rules['role'] = ['required', 'string', 'in:user,admin'];
+			$rules['role'] = ['required', 'string', 'in:user,seller,admin'];
 		}
 
 		return $rules;
