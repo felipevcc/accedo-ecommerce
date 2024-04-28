@@ -10,7 +10,18 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<!-- Left Side Of Navbar -->
 			<ul class="navbar-nav me-auto">
+			</ul>
 
+			<!-- Navbar center -->
+			<ul class="navbar-nav m-auto">
+				<form action="{{route('products.search')}}" method="GET">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Buscar" name="searchTerm">
+						<button class="btn btn-outline-secondary">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</form>
 			</ul>
 
 			<!-- Right Side Of Navbar -->
