@@ -6,19 +6,19 @@
 			</div>
 			<div class="col-md-8 p-3">
 				<div class="card-body d-flex row mx-0">
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-start">
 						<div class="d-flex row mx-0">
 							<h6 class="card-title fs-5" @click="showProduct">{{ product.format_name }}</h6>
 							<div class="d-flex">
 								<div>
 									<a @click="deleteCartProduct" role="button" class="card-link fw-bold">Eliminar</a>
 								</div>
-								<div class="ms-3">
+								<div class="ms-3" v-if="product.stock > 0">
 									<a @click="buyProduct" role="button" class="card-link fw-bold">Comprar ahora</a>
 								</div>
 							</div>
 						</div>
-						<div class="d-flex row justify-content-center text-center ms-2 product-amount">
+						<div class="d-flex row justify-content-center text-center ms-2 product-amount" v-if="product.stock > 0">
 							<div class="input-group d-flex justify-content-center text-center">
 								<button type="button" class="btn btn-primary btn-sm" @click="decreaseAmount" :disabled="detail.amount <= 1">-</button>
 								<input type="number" v-model="detail.amount" :class="{ 'is-invalid': amountError }" @change="changeAmount" />
@@ -29,10 +29,13 @@
 								{{ product.stock }} {{ pluralize('disponible', product.stock) }}
 							</span>
 						</div>
-						<div class="d-flex flex-wrap mt-2">
+						<div class="d-flex flex-wrap mt-2" v-if="product.stock > 0">
 							<span class="w-100 product-price fs-4 fw-normal ms-5">
 								{{ formatCurrency(cart_detail.price) }}
 							</span>
+						</div>
+						<div class="no-stock" v-if="product.stock < 1">
+							<i class="fa-solid fa-circle-exclamation"></i> No hay stock
 						</div>
 					</div>
 

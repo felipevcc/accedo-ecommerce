@@ -134,7 +134,7 @@ export default {
 			name: yup.string().required(),
 			description: yup.string().required(),
 			price: yup.number().required().positive().integer(),
-			stock: yup.number().required().positive().integer(),
+			stock: yup.number().required().integer().min(0),
 			category: yup.number().required()
 		});
 

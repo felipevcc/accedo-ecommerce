@@ -11,7 +11,7 @@ class ProductRequest extends FormRequest
 		'name' => ['required', 'string'],
 		'description' => ['required', 'string'],
 		'price' => ['required', 'numeric'],
-		'stock' => ['required', 'numeric'],
+		'stock' => ['required', 'numeric', 'min:0'],
 		'image' => ['required', 'image'],
 	];
 
