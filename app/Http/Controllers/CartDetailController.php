@@ -71,6 +71,12 @@ class CartDetailController extends Controller
 		return response()->json([], 204);
 	}
 
+	public function show(Request $request, CartDetail $cartDetail)
+	{
+		if (!$request->ajax()) return view('cartDetails.show', compact('cartDetail'));
+		return response()->json(['cartDetail' => $cartDetail], 200);
+	}
+
 	public function destroy(Request $request, CartDetail $cartDetail)
 	{
 		$cartDetail->delete();

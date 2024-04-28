@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['prefix' => 'cartDetails', 'middleware' => ['role:user'], 'controller' => CartDetailController::class], function () {
 		Route::post('/store', 'store')->name('cartDetails.store');
 		Route::put('/{cartDetail}', 'update')->name('cartDetails.update');
+		Route::get('/{cartDetail}', 'show')->name('cartDetails.show');
 		Route::delete('/{cartDetail}', 'destroy')->name('cartDetails.destroy');
 	});
 });

@@ -31,7 +31,7 @@
 						</div>
 						<div class="d-flex flex-wrap mt-2">
 							<span class="w-100 product-price fs-4 fw-normal ms-5">
-								{{ formatCurrency(product.price) }}
+								{{ formatCurrency(cart_detail.price) }}
 							</span>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, watch } from 'vue';
 import { formatCurrency, pluralize } from '@/helpers/Format.js';
 import { successMessage, handlerErrors, deleteMessage, warningMessage } from '@/helpers/Alerts.js';
 
@@ -119,8 +119,7 @@ export default {
 			instance.parent.ctx.buy();
 		};
 
-		const reloadCart = async () => {
-			await getProduct();
+		const reloadCart = () => {
 			instance.parent.ctx.reloadState();
 		};
 

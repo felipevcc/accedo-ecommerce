@@ -2,6 +2,12 @@
 	/* .details {
 		width: 80%;
 	} */
+	.row > * {
+		padding: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
 	.purchase-info {
 		max-width: 360px;
 		min-width: 289px !important;
@@ -10,6 +16,12 @@
 }
 
 .cart-detail-card {
+	.row > * {
+		padding: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
 	.img-cont {
 		width: 150px;
 		height: auto;

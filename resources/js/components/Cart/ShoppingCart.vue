@@ -86,6 +86,7 @@ export default {
 		}
 
 		const reloadState = () => {
+			/* cartData.value = null; */
 			getCart();
 		};
 
