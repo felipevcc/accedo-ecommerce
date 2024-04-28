@@ -34,6 +34,13 @@ export const handlerErrors = async error => {
 				text: 'No tienes los permisos para ejecutar esta accion.'
 			};
 			break;
+		case 401:
+			options = {
+				icon: 'error',
+				title: 'Error: No autorizado',
+				text: 'No tienes los permisos para ejecutar esta accion.'
+			};
+			break;
 		default:
 			options = {
 				icon: 'error',
@@ -46,16 +53,26 @@ export const handlerErrors = async error => {
 	return error_object;
 };
 
-export const successMessage = async ({ is_delete = false, reload = false }) => {
+export const successMessage = async ({ is_delete = false, reload = false, text = null }) => {
 	await Swal.fire({
 		icon: 'success',
 		title: 'Felicidades!',
-		text: is_delete
+		text: text ?? (is_delete
 			? 'Dato eliminado correctamente.'
-			: 'Dato almacenado correctamente.'
+			: 'Dato almacenado correctamente.')
 	});
 	if (reload) window.location.reload();
 };
+
+export const redirectMessage = async ({ title = '¿Continuar?', confirmButtonText = 'Ir', cancelButtonText = 'Quedarse' }) => {
+	const { isConfirmed } = await Swal.fire({
+		title,
+		showCancelButton: true,
+		confirmButtonText,
+		cancelButtonText
+	});
+	return isConfirmed;
+}
 
 export const deleteMessage = async () => {
 	const { isConfirmed } = await Swal.fire({
@@ -65,3 +82,14 @@ export const deleteMessage = async () => {
 	});
 	return isConfirmed;
 };
+
+export const warningMessage = async (text) => {
+	await Swal.fire({
+		icon: 'warning',
+		title: text
+	});
+}
+
+export const basicMessage = async (text) => {
+	await Swal.fire(text);
+}

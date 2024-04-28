@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="mt-4 d-grid gap-2 add-cart">
-				<a class="btn btn-primary btn-lg" :class="{ 'disabled': !available(product.stock) }" :href="`/`" role="button" :tabindex="available(product.stock) ? '0' : '-1'" :aria-disabled="!available(product.stock)">Agregar al carrito</a>
+				<button type="button" class="btn btn-primary btn-lg" :disabled="!available(product.stock)" @click="addToCart">Agregar al carrito</button>
 			</div>
 		</div>
 	</div>
@@ -33,20 +33,35 @@
 
 <script>
 import { formatCurrency, pluralize } from '@/helpers/Format.js';
+import { successMessage, handlerErrors, redirectMessage } from '@/helpers/Alerts.js';
 
 export default {
 	props: ['product'],
 	//components: {},
-	setup() {
+	setup({ product }) {
 		const available = (stock) => {
 			if (stock) return true;
 			else return false;
 		}
 
+		const addToCart = async () => {
+			try {
+				await axios.post('/cartDetails/store', { product_id: product.id });
+				await successMessage({ text: 'Producto agregado al carrito'});
+				if (await redirectMessage({ title: 'Ir al carrito' })) {
+					const { data: { auth_user } } = await axios.get('/authUser');
+					window.location.href = `/carts/${auth_user.id}`;
+				};
+			} catch (error) {
+				await handlerErrors(error);
+			}
+		}
+
 		return {
 			formatCurrency,
 			pluralize,
-			available
+			available,
+			addToCart
 		}
 	}
 }

@@ -16,13 +16,7 @@ class CartDetailRequest extends FormRequest
 	{
 		return [
 			'amount' => ['required', 'numeric', 'min:1'],
-			'product_id' => [
-				'required',
-				'exists:products,id',
-				Rule::unique('cart_details')->where(function ($query) {
-					return $query->where('cart_id', $this->cart_id);
-				}),
-			],
+			'product_id' => ['required', 'exists:products,id'],
 			'cart_id' => ['required', 'exists:carts,id'],
 		];
 	}

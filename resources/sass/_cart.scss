@@ -1,5 +1,33 @@
 .shopping-cart {
+	/* .details {
+		width: 80%;
+	} */
 	.purchase-info {
 		max-width: 360px;
+		min-width: 289px !important;
+		height: min-content;
+	}
+}
+
+.cart-detail-card {
+	.img-cont {
+		width: 150px;
+		height: auto;
+		img {
+			width: inherit;
+			height: inherit;
+		}
+	}
+
+	.input-group {
+		input {
+			width: 40px;
+
+			&[type="number"]::-webkit-inner-spin-button,
+			&[type="number"]::-webkit-outer-spin-button {
+			  -webkit-appearance: none;
+			  margin: 0;
+			}
+		}
 	}
 }

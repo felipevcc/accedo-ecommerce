@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -29,6 +30,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 	// View after being authenticated
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+	// Get authenticated user
+	Route::get('/authUser', [AuthController::class, 'profile'])->name('auth.profile');
 
 	// Roles
 	Route::group(['prefix' => 'roles', 'middleware' => ['role:admin'], 'controller' => RoleController::class], function () {
@@ -67,13 +71,13 @@ Route::group(['middleware' => ['auth']], function () {
 	// Carts
 	Route::group(['prefix' => 'carts', 'middleware' => ['role:user|admin'], 'controller' => CartController::class], function () {
 		Route::get('/{user}', 'show')->name('carts.show');
-		Route::post('/store', 'store')->name('carts.store');
+		/* Route::post('/store', 'store')->name('carts.store'); */
 	});
 
 	// CartDetails
 	Route::group(['prefix' => 'cartDetails', 'middleware' => ['role:user'], 'controller' => CartDetailController::class], function () {
 		Route::post('/store', 'store')->name('cartDetails.store');
-		Route::post('/update/{cartDetail}', 'update')->name('cartDetails.update');
+		Route::put('/{cartDetail}', 'update')->name('cartDetails.update');
 		Route::delete('/{cartDetail}', 'destroy')->name('cartDetails.destroy');
 	});
 });

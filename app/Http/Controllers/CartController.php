@@ -6,15 +6,16 @@ use App\Http\Requests\Cart\CartRequest;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-	public function store(CartRequest $request)
+	/* public function store(CartRequest $request)
 	{
 		$cart = new Cart($request->all());
 		$cart->save();
 		return response()->json(['status' => 'Cart created successfully', 'cart' => $cart], 201);
-	}
+	} */
 
 	public function show(Request $request, User $user)
 	{

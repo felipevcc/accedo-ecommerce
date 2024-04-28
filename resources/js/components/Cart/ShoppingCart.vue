@@ -1,5 +1,5 @@
 <template>
-	<div v-if="cartData && cartData.cartDetails">
+	<div v-if="cartData && cartData.cart_details">
 		<div class="d-flex justify-content-center my-4">
 			<h1>Carrito de compras</h1>
 		</div>
@@ -9,11 +9,11 @@
 					<h2 class="my-auto fs-4 fw-bold">Productos</h2>
 				</div>
 				<div class="card-body d-flex row">
-					<cart-detail-card v-for="(detail, index) in cartData.cartDetails" :key="index" :cart_detail="detail" />
+					<cart-detail-card v-for="(detail, index) in cartData.cart_details" :key="index" :cart_detail="detail" :product="getProduct(detail)" />
 				</div>
 			</div>
 
-			<div class="card border-light bg-white shadow-sm rounded rounded-3 w-50 purchase-info">
+			<div class="card border-light bg-white shadow-sm rounded rounded-3 w-50 purchase-info ms-4">
 				<div class="card-header border-bottom bg-white p-3">
 					<h1 class="my-auto fs-5 fw-bold">Resumen de compra</h1>
 				</div>
@@ -27,7 +27,7 @@
 					</div>
 				</div>
 				<div class="card-footer border-light bg-white d-grid gap-2">
-					<button class="btn btn-primary btn-lg" :disabled="cartData.product_quantity == 0">Continuar compra</button>
+					<button class="btn btn-primary btn-lg" :disabled="cartData.product_quantity == 0" @click="buy">Continuar compra</button>
 				</div>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import { successMessage, handlerErrors, deleteMessage } from '@/helpers/Alerts.js';
+import { successMessage, handlerErrors, deleteMessage, basicMessage } from '@/helpers/Alerts.js';
 import CartDetailCard from './CartDetailCard.vue';
 import { formatCurrency, pluralize } from '@/helpers/Format.js';
 
@@ -70,22 +70,38 @@ export default {
 			} catch (error) {
 				await handlerErrors(error);
 			}
+		};
+
+		const getProduct = async (cart_detail) => {
+			try {
+				const { data } = await axios.get(`/products/${cart_detail.product_id}`);
+				return data.product;
+			} catch (error) {
+				await handlerErrors(error);
+			}
+		};
+
+		const buy = async () => {
+			await basicMessage('Esta funcionalidad aún no está disponible.');
 		}
 
 		const reloadState = () => {
 			getCart();
-		}
+		};
 
 		const productQuantity = (quantity) => {
 			if (quantity > 1) return `(${quantity})`;
 			else return '';
-		}
+		};
 
 		return {
+			cartData,
 			formatCurrency,
 			pluralize,
 			reloadState,
-			productQuantity
+			productQuantity,
+			getProduct,
+			buy
 		}
 	}
 }

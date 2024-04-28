@@ -26,7 +26,7 @@ export default {
 		const productAvailable = (stock) => {
 			if (stock > 10) return '+10';
 			else return stock;
-		}
+		};
 
 		return {
 			formatCurrency,
