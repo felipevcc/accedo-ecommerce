@@ -1,13 +1,13 @@
 <template>
-	<div class="card bg-white border-light rounded-0 cart-detail-card" v-if="product.image.route">
+	<div class="card bg-white border-light rounded-0 cart-detail-card">
 		<div class="row g-0 mx-0">
 			<div class="col-md-4 img-cont">
 				<img :src="product.image.route" class="card-img-top img-fluid" alt="Imagen producto" @click="showProduct">
 			</div>
 			<div class="col-md-8 p-3">
 				<div class="card-body d-flex row mx-0">
-					<div class="d-flex justify-content-start">
-						<div class="d-flex row mx-0">
+					<div class="d-flex">
+						<div class="d-flex row mx-0 me-auto">
 							<h6 class="card-title fs-5" @click="showProduct">{{ product.format_name }}</h6>
 							<div class="d-flex">
 								<div>
@@ -18,7 +18,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="d-flex row justify-content-center text-center ms-2 product-amount" v-if="product.stock > 0">
+						<div class="d-flex row justify-content-center text-center product-amount m-auto" v-if="product.stock > 0">
 							<div class="input-group d-flex justify-content-center text-center">
 								<button type="button" class="btn btn-primary btn-sm" @click="decreaseAmount" :disabled="detail.amount <= 1">-</button>
 								<input type="number" v-model="detail.amount" :class="{ 'is-invalid': amountError }" @change="changeAmount" />
@@ -29,12 +29,12 @@
 								{{ product.stock }} {{ pluralize('disponible', product.stock) }}
 							</span>
 						</div>
-						<div class="d-flex flex-wrap mt-2" v-if="product.stock > 0">
+						<div class="d-flex flex-wrap mt-2 ms-auto" v-if="product.stock > 0">
 							<span class="w-100 product-price fs-4 fw-normal ms-5">
 								{{ formatCurrency(cart_detail.price) }}
 							</span>
 						</div>
-						<div class="no-stock" v-if="product.stock < 1">
+						<div class="no-stock my-auto ms-auto" v-if="product.stock < 1">
 							<i class="fa-solid fa-circle-exclamation"></i> No hay stock
 						</div>
 					</div>
@@ -42,16 +42,16 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div v-else>
-		NOTHING
+
+		<!-- Go to product view -->
+		<form id="show-product-form" :action="`/products/${product.id}`" method="GET" class="d-none"></form>
 	</div>
 </template>
 
 <script>
-import { ref, onMounted, getCurrentInstance, watch } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { formatCurrency, pluralize } from '@/helpers/Format.js';
-import { successMessage, handlerErrors, deleteMessage, warningMessage } from '@/helpers/Alerts.js';
+import { handlerErrors } from '@/helpers/Alerts.js';
 
 export default {
 	props: ['cart_detail'],
@@ -127,7 +127,7 @@ export default {
 		};
 
 		const showProduct = () => {
-			window.location.href = `/products/${product.value.id}`;
+			document.getElementById('show-product-form').submit();
 		};
 
 		return {
