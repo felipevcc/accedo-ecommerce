@@ -16,8 +16,8 @@
 <body>
 	<div id="app">
 
-		{{-- Menu --}}
-		<x-menu />
+		{{-- Navbar --}}
+		<x-navbar />
 
 		{{-- Content --}}
 		<main id="app">

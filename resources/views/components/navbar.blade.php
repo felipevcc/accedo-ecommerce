@@ -13,8 +13,8 @@
 			</ul>
 
 			<!-- Navbar center -->
-			<ul class="navbar-nav m-auto">
-				<form action="{{route('products.search')}}" method="GET">
+			<ul class="navbar-nav m-auto center">
+				<form class="search my-auto" action="{{route('products.search')}}" method="GET">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Buscar" name="searchTerm">
 						<button class="btn btn-outline-secondary">
