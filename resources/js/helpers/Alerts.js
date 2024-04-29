@@ -35,11 +35,8 @@ export const handlerErrors = async error => {
 			};
 			break;
 		case 401:
-			options = {
-				icon: 'error',
-				title: 'Error: No autorizado',
-				text: 'No tienes los permisos para ejecutar esta accion.'
-			};
+			// Unauthorized, unauthenticated user
+			window.location.href = '/login';
 			break;
 		default:
 			options = {
